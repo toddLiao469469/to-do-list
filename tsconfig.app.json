@@ -11,7 +11,8 @@
       "@components/*": ["./src/modules/components/*"],
       "@pages/*": ["./src/modules/pages/*"],
       "@api/*": ["./src/api/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@store/*": ["./src/store/*"]
     },
 
     /* Bundler mode */

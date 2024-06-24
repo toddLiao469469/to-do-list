@@ -8,7 +8,8 @@ export default defineConfig({
       '@components': '/src/modules/components',
       '@api': '/src/api',
       '@pages': '/src/modules/pages',
-      '@utils': '/src/utils'
+      '@utils': '/src/utils',
+      '@store': '/src/store',
     }
   },
   plugins: [react()],
