@@ -38,7 +38,7 @@ const getTodoList = (): Promise<Todo[]> => {
         }
 
       ])
-    }, 1000)
+    }, 3000)
 
   })
 }
