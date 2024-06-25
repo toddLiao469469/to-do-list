@@ -3,6 +3,7 @@ interface Todo {
   description: string;
   completed: boolean;
   todoId: string;
+  createdAt: number;
 }
 
 
