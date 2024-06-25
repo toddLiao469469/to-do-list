@@ -1,5 +1,6 @@
+import { PayloadAction, createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
+
 import { getTodoList } from "@api/todo";
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { Todo } from "@utils/types";
 
@@ -11,7 +12,7 @@ export interface TodoState {
 
 const initialState: TodoState = {
   todos: [],
-  loading: true,
+  loading: false,
   error: null,
 };
 
@@ -34,26 +35,42 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    setTodoList(state, action: PayloadAction<Todo[]>) {
-      state.todos = action.payload;
-      state.loading = false;
-      state.error = null;
+    addTodo: {
+      reducer(state, action: PayloadAction<Todo>) {
+        state.todos.push(action.payload);
+      },
+      prepare(todo: Omit<Todo, "todoId" | "createdAt" | "completed">) {
+        return {
+          payload: {
+            ...todo,
+            todoId: nanoid(),
+            createdAt: Date.now().valueOf(),
+            completed: false
+          }
+        };
+      }
     },
-    setError(state, action: PayloadAction<Error>) {
-      state.error = action.payload;
-      state.loading = false;
-    },
-    addTodo(state, action: PayloadAction<Todo>) {
-      state.todos.push(action.payload);
+    editTodo: (state, action: PayloadAction<Omit<Todo, "createdAt" | "completed">>) => {
+      const todo = state.todos.find((todo) => todo.todoId === action.payload.todoId);
+      if (todo) {
+        todo.title = action.payload.title;
+        todo.description = action.payload.description;
+      }
     },
     toggleTodo: (state, action: PayloadAction<string>) => {
       const todo = state.todos.find((todo) => todo.todoId === action.payload);
       if (todo) {
         todo.completed = !todo.completed;
       }
+    },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      state.todos = state.todos.filter((todo) => todo.todoId !== action.payload);
     }
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchTodoList.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(fetchTodoList.fulfilled, (state, action) => {
       state.todos = action.payload;
       state.loading = false;
@@ -71,7 +88,7 @@ const todosSlice = createSlice({
 });
 
 
-export const { setTodoList, setError, addTodo, toggleTodo } = todosSlice.actions;
+export const { addTodo, toggleTodo, editTodo, deleteTodo } = todosSlice.actions;
 
 export { fetchTodoList };
 
