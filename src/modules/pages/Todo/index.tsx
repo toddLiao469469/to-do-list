@@ -57,7 +57,7 @@ const NewTodoForm: FunctionComponent<NewTodoFormProps> = (props) => {
       dispatch(addToast({ message: "Todo added", type: "success" }));
       reset();
     },
-    [dispatch, reset]
+    [dispatch, reset],
   );
 
   return (
@@ -91,16 +91,15 @@ interface FilterFormProps {
   sorter: TodoSortOptions;
 
   onSortOptionChange: (
-    option: "field" | "direction"
+    option: "field" | "direction",
   ) => (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onFilerOptionChange: (
-    option: "completedStatus" | "searchText"
+    option: "completedStatus" | "searchText",
   ) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
 const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
-  const { filter, sorter, onFilerOptionChange, onSortOptionChange, className } =
-    props;
+  const { filter, sorter, onFilerOptionChange, onSortOptionChange, className } = props;
 
   return (
     <div className={clsx(className, "flex")}>
@@ -115,11 +114,7 @@ const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
           </option>
         ))}
       </Select>
-      <Select
-        label="Sort by"
-        value={sorter.field}
-        onChange={onSortOptionChange("field")}
-      >
+      <Select label="Sort by" value={sorter.field} onChange={onSortOptionChange("field")}>
         {todoSortField.map((field) => (
           <option key={field} value={field}>
             {field}
@@ -219,14 +214,13 @@ const TodoListPage: FunctionComponent = () => {
   }, [dispatch]);
 
   const handleSortOptionChange = useCallback(
-    (option: "field" | "direction") =>
-      (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSort({
-          ...sort,
-          [option]: event.target.value as (typeof sort)[keyof typeof sort],
-        });
-      },
-    [sort]
+    (option: "field" | "direction") => (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSort({
+        ...sort,
+        [option]: event.target.value as (typeof sort)[keyof typeof sort],
+      });
+    },
+    [sort],
   );
 
   const handleFilterOptionChange = useCallback(
@@ -237,7 +231,7 @@ const TodoListPage: FunctionComponent = () => {
           [option]: event.target.value,
         });
       },
-    [filter]
+    [filter],
   );
 
   if (todosState.loading) {
@@ -246,10 +240,7 @@ const TodoListPage: FunctionComponent = () => {
         <div>Loading...</div>
         <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-16 gap-x-8">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div
-              key={index}
-              className="skeleton h-32 justify-self-center w-full"
-            ></div>
+            <div key={index} className="skeleton h-32 justify-self-center w-full"></div>
           ))}
         </div>
       </div>
@@ -270,11 +261,7 @@ const TodoListPage: FunctionComponent = () => {
 
       <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2  gap-y-16 gap-x-8">
         {todosState.todos.map(({ todoId }) => (
-          <TodoCard
-            key={todoId}
-            todoId={todoId}
-            className="justify-self-center"
-          />
+          <TodoCard key={todoId} todoId={todoId} className="justify-self-center" />
         ))}
       </div>
     </div>
