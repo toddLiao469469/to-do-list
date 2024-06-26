@@ -8,8 +8,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "@components/*": ["./src/modules/components/*"],
-      "@pages/*": ["./src/modules/pages/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
       "@api/*": ["./src/api/*"],
       "@utils/*": ["./src/utils/*"],
       "@store/*": ["./src/store/*"]
@@ -30,5 +30,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src","tests"]
+  "include": ["src", "tests"]
 }

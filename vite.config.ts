@@ -5,9 +5,9 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   resolve: {
     alias: {
-      "@components": "/src/modules/components",
+      "@components": "/src/components",
       "@api": "/src/api",
-      "@pages": "/src/modules/pages",
+      "@pages": "/src/pages",
       "@utils": "/src/utils",
       "@store": "/src/store",
     },

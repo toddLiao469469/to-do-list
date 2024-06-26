@@ -1,7 +1,8 @@
-import { useAppSelector, useAppDispatch } from "@store/index";
-import { deleteToast } from "@store/slices/toastSlice";
 import clsx from "clsx";
 import { FunctionComponent } from "react";
+
+import { useAppSelector, useAppDispatch } from "@store/index";
+import { deleteToast } from "@store/toast.slice";
 
 const Toast: FunctionComponent = () => {
   const toasts = useAppSelector((state) => state.toast.toasts);

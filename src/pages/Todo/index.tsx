@@ -1,16 +1,16 @@
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
-
-import TodoCard from "@components/TodoCard";
+import clsx from "clsx";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppDispatch, useAppSelector } from "@store/index";
-import { addTodo, fetchTodoList } from "@store/slices/todoSlice";
+import { addTodo, fetchTodoList } from "@store/todo.slice";
 import { SortDirection, Todo } from "@utils/types";
-import Select from "@components/Select";
-import clsx from "clsx";
 import { CreateTodoInput, createTodoInputSchema } from "@utils/validator";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { addToast } from "@store/slices/toastSlice";
+import { addToast } from "@store/toast.slice";
+
+import TodoCard from "@components/TodoCard";
+import Select from "@components/common/Select";
 
 enum CompletedStatus {
   All = "ALL",

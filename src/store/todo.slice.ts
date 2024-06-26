@@ -9,7 +9,7 @@ import {
 import { getTodoList } from "@api/todo";
 
 import { Todo } from "@utils/types";
-import { RootState } from "..";
+import { RootState } from ".";
 
 export interface TodoState {
   todos: Todo[];
