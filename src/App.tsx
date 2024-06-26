@@ -1,10 +1,12 @@
 import PageLayout from "@components/PageLayout";
+import Toast from "@components/Toast";
 import TodoListPage from "@pages/Todo";
 
 function App() {
   return (
     <PageLayout>
       <TodoListPage />
+      <Toast />
     </PageLayout>
   );
 }
