@@ -6,15 +6,15 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "prettier",
+    "plugin:tailwindcss/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh", "eslint-plugin-prettier"],
+  plugins: ["react-refresh", "eslint-plugin-prettier", "simple-import-sort"],
   rules: {
     "prettier/prettier": "error",
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
   },
 };
