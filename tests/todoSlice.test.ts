@@ -1,6 +1,6 @@
 import { expect, describe, it, vi } from "vitest";
 
-import todosReducer, { addTodo, deleteTodo, editTodo, toggleTodo } from "@store/slices/todosSlice";
+import todosReducer, { addTodo, deleteTodo, editTodo, toggleTodo } from "@store/slices/todoSlice";
 
 vi.useFakeTimers();
 vi.setSystemTime(new Date(2024, 6, 24));

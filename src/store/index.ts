@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 
-import todosSlice from "./slices/todosSlice";
+import todoSlice from "./slices/todoSlice";
 import toastSlice, { toastListenerMiddleware } from "./slices/toastSlice";
 
 export const store = configureStore({
   reducer: {
-    todos: todosSlice,
+    todo: todoSlice,
     toast: toastSlice,
   },
   middleware: (getDefaultMiddleware) =>
