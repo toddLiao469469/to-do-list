@@ -1,24 +1,21 @@
-import { expect, describe, it, vi } from 'vitest'
+import { expect, describe, it, vi } from "vitest";
 
-import todosReducer, { addTodo, deleteTodo, editTodo, toggleTodo } from "@store/slices/todosSlice"
+import todosReducer, { addTodo, deleteTodo, editTodo, toggleTodo } from "@store/slices/todosSlice";
 
+vi.useFakeTimers();
+vi.setSystemTime(new Date(2024, 6, 24));
 
-vi.useFakeTimers()
-vi.setSystemTime(new Date(2024, 6, 24))
+const fixedId = "fixed-id";
 
-const fixedId = 'fixed-id'
-
-
-vi.mock('@reduxjs/toolkit', async (importOriginal) => {
-  const originalModule = await importOriginal<typeof import('@reduxjs/toolkit')>()
+vi.mock("@reduxjs/toolkit", async (importOriginal) => {
+  const originalModule = await importOriginal<typeof import("@reduxjs/toolkit")>();
   return {
     ...originalModule,
-    nanoid: vi.fn(() => fixedId)
+    nanoid: vi.fn(() => fixedId),
   };
 });
 
-describe('todo reducer', () => {
-
+describe("todo reducer", () => {
   const initialTodos = [
     {
       title: "title1",
@@ -33,49 +30,44 @@ describe('todo reducer', () => {
       completed: false,
       todoId: "todoId2",
       createdAt: Date.now(),
-    }
-  ]
+    },
+  ];
 
-  it('should return initial state', () => {
-    expect(todosReducer(undefined, { type: 'unknown' })).toEqual({
+  it("should return initial state", () => {
+    expect(todosReducer(undefined, { type: "unknown" })).toEqual({
       todos: [],
       loading: false,
-      error: null
+      error: null,
     });
   });
 
-  it('should add new todo', () => {
-    const now = Date.now()
+  it("should add new todo", () => {
+    const now = Date.now();
     const previousState = {
       todos: initialTodos,
       loading: false,
-      error: null
-    }
+      error: null,
+    };
 
     const newTodo = {
       title: "title3",
       description: "description3",
       completed: false,
-    }
-    expect(todosReducer(previousState, addTodo(
-      newTodo
-    ))).toEqual({
+    };
+    expect(todosReducer(previousState, addTodo(newTodo))).toEqual({
       ...previousState,
-      todos: [
-        ...previousState.todos,
-        { ...newTodo, todoId: fixedId, createdAt: now }
-      ],
+      todos: [...previousState.todos, { ...newTodo, todoId: fixedId, createdAt: now }],
     });
   });
 
-  it('should toggle todo completed ', () => {
-    const now = Date.now()
-    const todoId = "todoId1"
+  it("should toggle todo completed ", () => {
+    const now = Date.now();
+    const todoId = "todoId1";
     const previousState = {
       todos: initialTodos,
       loading: false,
-      error: null
-    }
+      error: null,
+    };
     expect(todosReducer(previousState, toggleTodo(todoId))).toEqual({
       todos: [
         {
@@ -91,26 +83,31 @@ describe('todo reducer', () => {
           completed: false,
           todoId: "todoId2",
           createdAt: now,
-        }
+        },
       ],
       loading: false,
-      error: null
+      error: null,
     });
   });
 
-  it('should edit todo', () => {
-    const todoId = "todoId1"
+  it("should edit todo", () => {
+    const todoId = "todoId1";
     const previousState = {
       todos: initialTodos,
       loading: false,
-      error: null
-    }
+      error: null,
+    };
 
-    expect(todosReducer(previousState, editTodo({
-      todoId: todoId,
-      title: "new title",
-      description: "new description"
-    }))).toEqual({
+    expect(
+      todosReducer(
+        previousState,
+        editTodo({
+          todoId: todoId,
+          title: "new title",
+          description: "new description",
+        }),
+      ),
+    ).toEqual({
       todos: [
         {
           title: "new title",
@@ -125,24 +122,24 @@ describe('todo reducer', () => {
           completed: false,
           todoId: "todoId2",
           createdAt: Date.now(),
-        }
+        },
       ],
       loading: false,
-      error: null
+      error: null,
     });
   });
 
-  it('should delete todo', () => {
-    const todoId = "todoId1"
+  it("should delete todo", () => {
+    const todoId = "todoId1";
     const previousState = {
       todos: initialTodos,
       loading: false,
-      error: null
-    }
+      error: null,
+    };
     expect(todosReducer(previousState, deleteTodo(todoId))).toEqual({
-      todos: initialTodos.filter(todo => todo.todoId !== todoId),
+      todos: initialTodos.filter((todo) => todo.todoId !== todoId),
       loading: false,
-      error: null
+      error: null,
     });
   });
 });

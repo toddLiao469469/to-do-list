@@ -3,12 +3,7 @@ import clsx from "clsx";
 import { format } from "date-fns/fp";
 
 import { useAppDispatch, useAppSelector } from "@store/index";
-import {
-  deleteTodo,
-  editTodo,
-  selectTodoById,
-  toggleTodo,
-} from "@store/slices/todosSlice";
+import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@store/slices/todosSlice";
 
 interface EditTodoInputProps {
   content?: string;
@@ -49,9 +44,7 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
   const todo = useAppSelector((state) => selectTodoById(state, todoId));
 
   const [editMode, setEditMode] = useState(false);
-  const [editDescription, setEditDescription] = useState(
-    todo?.description || ""
-  );
+  const [editDescription, setEditDescription] = useState(todo?.description || "");
 
   const dispatch = useAppDispatch();
 
@@ -62,19 +55,16 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
           title: todo.title,
           description: editDescription,
           todoId,
-        })
+        }),
       );
     }
 
     setEditMode((prev) => !prev);
   }, [dispatch, editDescription, editMode, todo, todoId]);
 
-  const handleDescriptionChange = useCallback(
-    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setEditDescription(event.target.value);
-    },
-    []
-  );
+  const handleDescriptionChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditDescription(event.target.value);
+  }, []);
 
   const handleComplete = useCallback(() => {
     dispatch(toggleTodo(todoId));
@@ -90,9 +80,7 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
 
   const { title, description, completed, createdAt } = todo;
   return (
-    <div
-      className={clsx(className, "card bg-primary text-primary-content w-full")}
-    >
+    <div className={clsx(className, "card bg-primary text-primary-content w-full")}>
       <div className="card-body">
         <div className="flex justify-start items-center gap-x-4">
           <input
@@ -102,28 +90,20 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
             onClick={handleComplete}
           />
           {editMode ? (
-            <input
-              type="text"
-              className="input input-bordered w-full max-w-xs"
-            />
+            <input type="text" className="input input-bordered w-full max-w-xs" />
           ) : (
             <h2 className="card-title">{title}</h2>
           )}
         </div>
 
         {editMode ? (
-          <EditTodoInput
-            content={description}
-            onChange={handleDescriptionChange}
-          />
+          <EditTodoInput content={description} onChange={handleDescriptionChange} />
         ) : (
           <p className="break-words">{description}</p>
         )}
 
         <div className="card-actions grid md:grid-cols-2 grid-cols-1 mt-2">
-          <div className="self-center">
-            createdAt: {format("MM/dd HH:mm:ss", createdAt)}
-          </div>
+          <div className="self-center">createdAt: {format("MM/dd HH:mm:ss", createdAt)}</div>
 
           <div className="flex justify-end">
             <button className="btn mr-4 w-24" onClick={handleActionButtonClick}>

@@ -20,4 +20,4 @@ enum SortDirection {
 
 export type { Todo, Toast };
 
-export { SortDirection }
+export { SortDirection };
