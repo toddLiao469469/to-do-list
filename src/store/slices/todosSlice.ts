@@ -1,8 +1,10 @@
-import { PayloadAction, createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice, nanoid, createSelector } from "@reduxjs/toolkit";
 
 import { getTodoList } from "@api/todo";
 
 import { Todo } from "@utils/types";
+import { RootState } from "..";
+
 
 export interface TodoState {
   todos: Todo[];
@@ -91,5 +93,20 @@ const todosSlice = createSlice({
 export const { addTodo, toggleTodo, editTodo, deleteTodo } = todosSlice.actions;
 
 export { fetchTodoList };
+
+
+
+export const selectTodos = createSelector(
+  (state: RootState) => state.todos,
+  (todos) => todos.todos
+);
+
+export const selectTodoById = createSelector(
+  selectTodos,
+  (_, todoId: string) => todoId,
+  (todos: Todo[], todoId: string) => {
+    return todos.find(todo => todo.todoId === todoId)
+  }
+);
 
 export default todosSlice.reducer;
