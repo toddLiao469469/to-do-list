@@ -1,6 +1,6 @@
 import { expect, describe, it, vi } from 'vitest'
 
-import todosReducer, { addTodo, deleteTodo, toggleTodo } from "@store/slices/todosSlice"
+import todosReducer, { addTodo, deleteTodo, editTodo, toggleTodo } from "@store/slices/todosSlice"
 
 
 vi.useFakeTimers()
@@ -36,7 +36,7 @@ describe('todo reducer', () => {
     }
   ]
 
-  it('should handle initial state', () => {
+  it('should return initial state', () => {
     expect(todosReducer(undefined, { type: 'unknown' })).toEqual({
       todos: [],
       loading: false,
@@ -44,7 +44,7 @@ describe('todo reducer', () => {
     });
   });
 
-  it('should handle addTodo', () => {
+  it('should add new todo', () => {
     const now = Date.now()
     const previousState = {
       todos: initialTodos,
@@ -68,7 +68,7 @@ describe('todo reducer', () => {
     });
   });
 
-  it('should handle toggleTodo', () => {
+  it('should toggle todo completed ', () => {
     const now = Date.now()
     const todoId = "todoId1"
     const previousState = {
@@ -98,9 +98,41 @@ describe('todo reducer', () => {
     });
   });
 
-  it('should handle deleteTodo', () => {
+  it('should edit todo', () => {
+    const todoId = "todoId1"
+    const previousState = {
+      todos: initialTodos,
+      loading: false,
+      error: null
+    }
 
+    expect(todosReducer(previousState, editTodo({
+      todoId: todoId,
+      title: "new title",
+      description: "new description"
+    }))).toEqual({
+      todos: [
+        {
+          title: "new title",
+          description: "new description",
+          completed: false,
+          todoId: todoId,
+          createdAt: Date.now(),
+        },
+        {
+          title: "title2",
+          description: "description2",
+          completed: false,
+          todoId: "todoId2",
+          createdAt: Date.now(),
+        }
+      ],
+      loading: false,
+      error: null
+    });
+  });
 
+  it('should delete todo', () => {
     const todoId = "todoId1"
     const previousState = {
       todos: initialTodos,
