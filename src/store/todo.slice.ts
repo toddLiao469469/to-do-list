@@ -1,14 +1,14 @@
 import {
-  PayloadAction,
   createAsyncThunk,
+  createSelector,
   createSlice,
   nanoid,
-  createSelector,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 
-import { getTodoList } from "@api/todo";
+import { getTodoList } from "@/api/todo";
+import { Todo } from "@/utils/types";
 
-import { Todo } from "@utils/types";
 import { RootState } from ".";
 
 export interface TodoState {

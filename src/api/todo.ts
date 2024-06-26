@@ -1,4 +1,4 @@
-import { Todo } from "@utils/types";
+import { Todo } from "@/utils/types";
 
 // mock data
 const getTodoList = (): Promise<Todo[]> => {

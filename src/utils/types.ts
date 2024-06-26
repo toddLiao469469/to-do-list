@@ -18,6 +18,6 @@ enum SortDirection {
   desc = "DESC",
 }
 
-export type { Todo, Toast };
+export type { Toast, Todo };
 
 export { SortDirection };

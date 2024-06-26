@@ -1,6 +1,6 @@
-import { expect, describe, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import toastSlice, { addToast, deleteToast, ToastState } from "@store/toast.slice";
+import toastSlice, { addToast, deleteToast, ToastState } from "@/store/toast.slice";
 
 vi.useFakeTimers();
 
