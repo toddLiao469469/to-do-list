@@ -1,6 +1,6 @@
-import PageLayout from "@components/PageLayout";
-import Toast from "@components/Toast";
-import TodoListPage from "@pages/Todo";
+import PageLayout from "@/components/common/PageLayout";
+import Toast from "@/components/Toast";
+import TodoListPage from "@/pages/Todo";
 
 function App() {
   return (

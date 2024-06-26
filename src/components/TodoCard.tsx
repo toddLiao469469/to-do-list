@@ -1,9 +1,9 @@
-import { FunctionComponent, useCallback, useState, memo } from "react";
 import clsx from "clsx";
 import { format } from "date-fns/fp";
+import { FunctionComponent, memo, useCallback, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "@store/index";
-import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@store/todo.slice";
+import { useAppDispatch, useAppSelector } from "@/store/index";
+import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@/store/todo.slice";
 
 interface EditTodoInputProps {
   content?: string;
@@ -26,7 +26,7 @@ interface EmptyTodoCardProps {}
 
 const EmptyTodoCard: FunctionComponent<EmptyTodoCardProps> = () => {
   return (
-    <div className="card bg-primary text-primary-content w-full">
+    <div className="card w-full bg-primary text-primary-content">
       <div className="card-body">
         <h2 className="card-title">No Todo Found</h2>
       </div>
@@ -80,9 +80,9 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
 
   const { title, description, completed, createdAt } = todo;
   return (
-    <div className={clsx(className, "card bg-primary text-primary-content w-full")}>
+    <div className={clsx(className, "card w-full bg-primary text-primary-content")}>
       <div className="card-body">
-        <div className="flex justify-start items-center gap-x-4">
+        <div className="flex items-center justify-start gap-x-4">
           <input
             type="checkbox"
             defaultChecked={completed}
@@ -102,7 +102,7 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
           <p className="break-words">{description}</p>
         )}
 
-        <div className="card-actions grid md:grid-cols-2 grid-cols-1 mt-2">
+        <div className="card-actions mt-2 grid grid-cols-1 md:grid-cols-2">
           <div className="self-center">createdAt: {format("MM/dd HH:mm:ss", createdAt)}</div>
 
           <div className="flex justify-end">

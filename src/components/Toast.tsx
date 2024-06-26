@@ -1,15 +1,15 @@
 import clsx from "clsx";
 import { FunctionComponent } from "react";
 
-import { useAppSelector, useAppDispatch } from "@store/index";
-import { deleteToast } from "@store/toast.slice";
+import { useAppDispatch, useAppSelector } from "@/store/index";
+import { deleteToast } from "@/store/toast.slice";
 
 const Toast: FunctionComponent = () => {
   const toasts = useAppSelector((state) => state.toast.toasts);
   const dispatch = useAppDispatch();
 
   return (
-    <div className="toast toast-bottom toast-center">
+    <div className="toast toast-center toast-bottom">
       {toasts.map(({ toastId, type, message }) => (
         <div
           key={toastId}

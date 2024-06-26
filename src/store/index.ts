@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 
-import todoSlice from "@store/todo.slice";
-import toastSlice, { toastListenerMiddleware } from "@store/toast.slice";
+import toastSlice, { toastListenerMiddleware } from "@/store/toast.slice";
+import todoSlice from "@/store/todo.slice";
 
 export const store = configureStore({
   reducer: {

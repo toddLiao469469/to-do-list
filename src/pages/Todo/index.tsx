@@ -1,16 +1,15 @@
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
-import clsx from "clsx";
 import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useAppDispatch, useAppSelector } from "@store/index";
-import { addTodo, fetchTodoList } from "@store/todo.slice";
-import { SortDirection, Todo } from "@utils/types";
-import { CreateTodoInput, createTodoInputSchema } from "@utils/validator";
-import { addToast } from "@store/toast.slice";
-
-import TodoCard from "@components/TodoCard";
-import Select from "@components/common/Select";
+import Select from "@/components/common/Select";
+import TodoCard from "@/components/TodoCard";
+import { useAppDispatch, useAppSelector } from "@/store/index";
+import { addToast } from "@/store/toast.slice";
+import { addTodo, fetchTodoList } from "@/store/todo.slice";
+import { SortDirection, Todo } from "@/utils/types";
+import { CreateTodoInput, createTodoInputSchema } from "@/utils/validator";
 
 enum CompletedStatus {
   All = "ALL",
@@ -62,7 +61,7 @@ const NewTodoForm: FunctionComponent<NewTodoFormProps> = (props) => {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className={clsx(className, "grid grid-cols-3 gap-8 my-8")}>
+      <div className={clsx(className, "my-8 grid grid-cols-3 gap-8")}>
         <input
           type="text"
           placeholder="New Todo Title"
@@ -234,11 +233,11 @@ const TodoListPage: FunctionComponent = () => {
 
   if (todoState.loading) {
     return (
-      <div className="mx-auto px-8 xl:w-3/4 md:w-full ">
+      <div className="mx-auto px-8 md:w-full xl:w-3/4 ">
         <div>Loading...</div>
-        <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-16 gap-x-8">
+        <div className="grid grid-flow-row-dense grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="skeleton h-32 justify-self-center w-full"></div>
+            <div key={index} className="skeleton h-32 w-full justify-self-center"></div>
           ))}
         </div>
       </div>
@@ -246,7 +245,7 @@ const TodoListPage: FunctionComponent = () => {
   }
 
   return (
-    <div className="mx-auto px-8 lg:w-4/5 md:w-full ">
+    <div className="mx-auto px-8 md:w-full lg:w-4/5 ">
       <NewTodoForm />
 
       <FilterTodoPanel
@@ -257,7 +256,7 @@ const TodoListPage: FunctionComponent = () => {
         onSortOptionChange={handleSortOptionChange}
       />
 
-      <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2  gap-y-16 gap-x-8">
+      <div className="grid grid-flow-row-dense grid-cols-1 gap-x-8  gap-y-16 lg:grid-cols-2">
         {todoState.todos.map(({ todoId }) => (
           <TodoCard key={todoId} todoId={todoId} className="justify-self-center" />
         ))}

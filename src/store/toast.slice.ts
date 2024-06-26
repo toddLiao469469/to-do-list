@@ -1,6 +1,6 @@
 import { createListenerMiddleware, createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
-import { Toast } from "@utils/types";
+import { Toast } from "@/utils/types";
 
 export interface ToastState {
   toasts: Toast[];
