@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { format } from "date-fns/fp";
 
 import { useAppDispatch, useAppSelector } from "@store/index";
-import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@store/slices/todosSlice";
+import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@store/slices/todoSlice";
 
 interface EditTodoInputProps {
   content?: string;

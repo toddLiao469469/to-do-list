@@ -3,7 +3,7 @@ import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import TodoCard from "@components/TodoCard";
 
 import { useAppDispatch, useAppSelector } from "@store/index";
-import { addTodo, fetchTodoList } from "@store/slices/todosSlice";
+import { addTodo, fetchTodoList } from "@store/slices/todoSlice";
 import { SortDirection, Todo } from "@utils/types";
 import Select from "@components/Select";
 import clsx from "clsx";
@@ -181,11 +181,9 @@ const TodoListPage: FunctionComponent = () => {
     direction: SortDirection.asc,
   });
 
-  const todosState = useAppSelector((state) => {
-    const todosState = state.todos;
-
+  const todoState = useAppSelector((state) => {
     return {
-      todos: todosState.todos
+      todos: state.todo.todos
         .filter(filterCompleted(filter.completedStatus))
         .filter(filterSearchText(filter.searchText))
         .sort((a, b) => {
@@ -204,8 +202,8 @@ const TodoListPage: FunctionComponent = () => {
 
           return 0;
         }),
-      loading: todosState.loading,
-      error: todosState.error,
+      loading: state.todo.loading,
+      error: state.todo.error,
     };
   });
 
@@ -234,7 +232,7 @@ const TodoListPage: FunctionComponent = () => {
     [filter],
   );
 
-  if (todosState.loading) {
+  if (todoState.loading) {
     return (
       <div className="mx-auto px-8 xl:w-3/4 md:w-full ">
         <div>Loading...</div>
@@ -260,7 +258,7 @@ const TodoListPage: FunctionComponent = () => {
       />
 
       <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2  gap-y-16 gap-x-8">
-        {todosState.todos.map(({ todoId }) => (
+        {todoState.todos.map(({ todoId }) => (
           <TodoCard key={todoId} todoId={todoId} className="justify-self-center" />
         ))}
       </div>

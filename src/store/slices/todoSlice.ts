@@ -98,8 +98,8 @@ export const { addTodo, toggleTodo, editTodo, deleteTodo } = todosSlice.actions;
 export { fetchTodoList };
 
 export const selectTodos = createSelector(
-  (state: RootState) => state.todos,
-  (todos) => todos.todos,
+  (state: RootState) => state.todo,
+  (todo) => todo.todos,
 );
 
 export const selectTodoById = createSelector(
