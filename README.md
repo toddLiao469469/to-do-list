@@ -93,7 +93,7 @@ yarn build
 
 本專案的 CI/CD 是透過 GitHub Actions 和 Cloudflare Pages 實做：
 
- • GitHub Actions: 每當有 PR 被開啟，GitHub Actions 將自動執行測試
+ • GitHub Actions: 每當有 PR 被開啟，GitHub Actions 將自動執行測試  
  • Cloudflare Pages: 與 GitHub repo 整合，PR 開啟或更新時，Cloudflare Pages 會自動部署一個 preview 站點，以及 main branch 有新 commit 時將會自動部署到 [prod 站點](https://to-do-list.toddliao.dev)
 
 ### Sequence Diagram
@@ -109,11 +109,13 @@ sequenceDiagram
     UI->>TS: Dispatch addTodo
     TS-->>UI: Update Todos display
     TS->>ToastS: Dispatch addToast (New Todo Added)
+    ToastS-->>UI: Show Toast
 
     U->>UI: Delete Todo
     UI->>TS: Dispatch deleteTodo
     TS-->>UI: Update Todos display
     TS->>ToastS: Dispatch addToast (Todo Deleted)
+    ToastS-->>UI: Show Toast
 
     U->>UI: Edit/Toggle Completion
     UI->>TS: Dispatch editTodo/toggleTodo
@@ -122,7 +124,5 @@ sequenceDiagram
     U->>UI: Filter or sort Todos
     UI->>UI: Apply filters or sort locally
     UI-->>UI: Update Todos display
-
-    ToastS-->>UI: Show Toast
 
 ```
