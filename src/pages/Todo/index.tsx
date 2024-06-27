@@ -9,19 +9,15 @@ import { useAppDispatch, useAppSelector } from "@/store/index";
 import { addToast } from "@/store/toast.slice";
 import { addTodo, fetchTodoList } from "@/store/todo.slice";
 import { sortDirectionMap } from "@/utils/constants";
-import { SortDirection, Todo } from "@/utils/types";
+import { SortDirection } from "@/utils/types";
 import { CreateTodoInput, createTodoInputSchema } from "@/utils/validator";
 
-enum CompletedStatus {
-  All = "ALL",
-  Completed = "COMPLETED",
-  Uncompleted = "UNCOMPLETED",
-}
-const completedStatusOptionMap: Record<CompletedStatus, string> = {
-  [CompletedStatus.All]: "All Todos",
-  [CompletedStatus.Completed]: "Completed Todos",
-  [CompletedStatus.Uncompleted]: "Uncompleted Todos",
-};
+import {
+  CompletedStatus,
+  completedStatusOptionMap,
+  filterCompleted,
+  filterSearchText,
+} from "./utils";
 
 interface TodoFilterOptions {
   completedStatus: CompletedStatus;
@@ -147,31 +143,6 @@ const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
     </div>
   );
 };
-
-const filterCompleted =
-  (completedStatus: CompletedStatus) =>
-  (todo: Todo): boolean => {
-    switch (completedStatus) {
-      case CompletedStatus.All:
-        return true;
-      case CompletedStatus.Completed:
-        return todo.completed;
-      case CompletedStatus.Uncompleted:
-        return !todo.completed;
-    }
-  };
-
-const filterSearchText =
-  (searchText?: string) =>
-  (todo: Todo): boolean => {
-    if (!searchText) {
-      return true;
-    }
-
-    const content = todo.title + todo.description;
-
-    return content.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
-  };
 
 const TodoListPage: FunctionComponent = () => {
   const dispatch = useAppDispatch();
