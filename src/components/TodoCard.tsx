@@ -3,6 +3,7 @@ import { format } from "date-fns/fp";
 import { FunctionComponent, memo, useCallback, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/index";
+import { addToast } from "@/store/toast.slice";
 import { deleteTodo, editTodo, selectTodoById, toggleTodo } from "@/store/todo.slice";
 
 interface EditTodoInputProps {
@@ -72,6 +73,7 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
 
   const handleDelete = useCallback(() => {
     dispatch(deleteTodo(todoId));
+    dispatch(addToast({ message: "Todo deleted", type: "warning" }));
   }, [dispatch, todoId]);
 
   if (!todo) {
