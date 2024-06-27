@@ -13,7 +13,7 @@ const Select: FunctionComponent<PropsWithChildren<SelectProps>> = (props) => {
       <div className="label">
         <span className="label-text">{label}</span>
       </div>
-      <select className="select select-bordered" value={value} onChange={onChange}>
+      <select className="select select-bordered select-primary" value={value} onChange={onChange}>
         {children}
       </select>
     </label>

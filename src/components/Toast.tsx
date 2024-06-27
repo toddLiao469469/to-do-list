@@ -9,7 +9,7 @@ const Toast: FunctionComponent = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="toast toast-center toast-bottom">
+    <div className="toast toast-center toast-bottom w-1/2 max-w-72">
       {toasts.map(({ toastId, type, message }) => (
         <div
           key={toastId}
