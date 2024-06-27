@@ -14,6 +14,6 @@ export interface Toast {
 }
 
 export enum SortDirection {
-  asc = "ASC",
-  desc = "DESC",
+  Asc = "ASC",
+  Desc = "DESC",
 }

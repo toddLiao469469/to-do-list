@@ -181,7 +181,7 @@ const TodoListPage: FunctionComponent = () => {
   });
   const [sort, setSort] = useState<TodoSortOptions>({
     field: "createdAt",
-    direction: SortDirection.asc,
+    direction: SortDirection.Asc,
   });
 
   const todoState = useAppSelector((state) => {
@@ -192,7 +192,7 @@ const TodoListPage: FunctionComponent = () => {
         .sort((a, b) => {
           const aItem = a[sort.field];
           const bItem = b[sort.field];
-          const direction = sort.direction === SortDirection.asc ? 1 : -1;
+          const direction = sort.direction === SortDirection.Asc ? 1 : -1;
 
           if (typeof aItem === "string" && typeof bItem === "string") {
             return aItem.localeCompare(bItem) * direction;
