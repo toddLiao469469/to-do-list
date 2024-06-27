@@ -80,13 +80,13 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
 
   const { title, description, completed, createdAt } = todo;
   return (
-    <div className={clsx(className, "card w-full bg-primary text-primary-content")}>
+    <div className={clsx(className, "card w-full  bg-neutral text-neutral-content")}>
       <div className="card-body">
         <div className="flex items-center justify-start gap-x-4">
           <input
             type="checkbox"
             defaultChecked={completed}
-            className="checkbox"
+            className="checkbox-primary checkbox"
             onClick={handleComplete}
           />
           {editMode ? (
@@ -106,10 +106,10 @@ const TodoCard: FunctionComponent<TodoCardProps> = (props) => {
           <div className="self-center">createdAt: {format("MM/dd HH:mm:ss", createdAt)}</div>
 
           <div className="flex justify-end">
-            <button className="btn mr-4 w-24" onClick={handleActionButtonClick}>
+            <button className="btn btn-secondary mr-4 w-24" onClick={handleActionButtonClick}>
               {editMode ? "Save" : "Edit"}
             </button>
-            <button className="btn btn-secondary w-24" onClick={handleDelete}>
+            <button className="btn btn-error w-24" onClick={handleDelete}>
               Delete
             </button>
           </div>

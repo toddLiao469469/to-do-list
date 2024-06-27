@@ -1,4 +1,4 @@
-interface Todo {
+export interface Todo {
   title: string;
   description?: string;
   completed: boolean;
@@ -6,18 +6,14 @@ interface Todo {
   createdAt: number;
 }
 
-interface Toast {
+export interface Toast {
   message: string;
   type: "success" | "error" | "info" | "warning";
   toastId: string;
   duration?: number;
 }
 
-enum SortDirection {
+export enum SortDirection {
   asc = "ASC",
   desc = "DESC",
 }
-
-export type { Toast, Todo };
-
-export { SortDirection };

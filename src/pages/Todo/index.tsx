@@ -8,6 +8,7 @@ import TodoCard from "@/components/TodoCard";
 import { useAppDispatch, useAppSelector } from "@/store/index";
 import { addToast } from "@/store/toast.slice";
 import { addTodo, fetchTodoList } from "@/store/todo.slice";
+import { sortDirectionMap } from "@/utils/constants";
 import { SortDirection, Todo } from "@/utils/types";
 import { CreateTodoInput, createTodoInputSchema } from "@/utils/validator";
 
@@ -16,7 +17,7 @@ enum CompletedStatus {
   Completed = "COMPLETED",
   Uncompleted = "UNCOMPLETED",
 }
-const CompletedStatusOptionMap: Record<CompletedStatus, string> = {
+const completedStatusOptionMap: Record<CompletedStatus, string> = {
   [CompletedStatus.All]: "All Todos",
   [CompletedStatus.Completed]: "Completed Todos",
   [CompletedStatus.Uncompleted]: "Uncompleted Todos",
@@ -61,7 +62,7 @@ const NewTodoForm: FunctionComponent<NewTodoFormProps> = (props) => {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className={clsx(className, "my-8 grid grid-cols-3 gap-8")}>
+      <div className={clsx(className, "my-8 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-3")}>
         <input
           type="text"
           placeholder="New Todo Title"
@@ -76,7 +77,7 @@ const NewTodoForm: FunctionComponent<NewTodoFormProps> = (props) => {
           className="input input-bordered input-primary w-full"
           {...register("description")}
         />
-        <button className="btn btn-primary w-full" type="submit">
+        <button className="btn btn-primary w-full max-w-36" type="submit">
           Add Todo
         </button>
       </div>
@@ -101,7 +102,7 @@ const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
   const { filter, sorter, onFilerOptionChange, onSortOptionChange, className } = props;
 
   return (
-    <div className={clsx(className, "flex")}>
+    <div className={clsx(className, "grid grid-cols-2 gap-x-6 gap-y-1 xl:grid-cols-4")}>
       <Select
         label="Filter by Completed Status"
         value={filter.completedStatus}
@@ -109,7 +110,7 @@ const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
       >
         {Object.values(CompletedStatus).map((status) => (
           <option key={status} value={status}>
-            {CompletedStatusOptionMap[status]}
+            {completedStatusOptionMap[status]}
           </option>
         ))}
       </Select>
@@ -125,19 +126,22 @@ const FilterTodoPanel: FunctionComponent<FilterFormProps> = (props) => {
         value={sorter.direction}
         onChange={onSortOptionChange("direction")}
       >
-        <option value={SortDirection.asc}>ASC</option>
-        <option value={SortDirection.desc}>DESC</option>
+        {Object.values(SortDirection).map((direction) => (
+          <option key={direction} value={direction}>
+            {sortDirectionMap[direction]}
+          </option>
+        ))}
       </Select>
       <label className="form-control w-full max-w-xs">
         <div className="label">
-          <span className="label-text">Search by title or description</span>
+          <span className="label-text">Search</span>
         </div>
         <input
           type="text"
-          placeholder="Type here"
+          placeholder="Search by title or description"
           onChange={onFilerOptionChange("searchText")}
           value={filter.searchText}
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered input-primary w-full max-w-xs"
         />
       </label>
     </div>
@@ -186,7 +190,6 @@ const TodoListPage: FunctionComponent = () => {
         .filter(filterCompleted(filter.completedStatus))
         .filter(filterSearchText(filter.searchText))
         .sort((a, b) => {
-          console.log(a[sort.field], b[sort.field]);
           const aItem = a[sort.field];
           const bItem = b[sort.field];
           const direction = sort.direction === SortDirection.asc ? 1 : -1;
@@ -234,7 +237,8 @@ const TodoListPage: FunctionComponent = () => {
   if (todoState.loading) {
     return (
       <div className="mx-auto px-8 md:w-full xl:w-3/4 ">
-        <div>Loading...</div>
+        <progress className="progress my-2 w-full"></progress>
+
         <div className="grid grid-flow-row-dense grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="skeleton h-32 w-full justify-self-center"></div>
@@ -256,7 +260,7 @@ const TodoListPage: FunctionComponent = () => {
         onSortOptionChange={handleSortOptionChange}
       />
 
-      <div className="grid grid-flow-row-dense grid-cols-1 gap-x-8  gap-y-16 lg:grid-cols-2">
+      <div className="mt-12 grid grid-flow-row-dense grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
         {todoState.todos.map(({ todoId }) => (
           <TodoCard key={todoId} todoId={todoId} className="justify-self-center" />
         ))}
